@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferran Capdevila — Full Stack Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0b0c14;
+      --surface:  #12131f;
+      --card:     #1a1b2e;
+      --accent:   #7c6af7;
+      --accent2:  #4ec9b0;
+      --text:     #e8e8f0;
+      --muted:    #9898b0;
+      --border:   rgba(255,255,255,0.07);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(11,12,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 32px; height: 56px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.03em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .lang-toggle {
+      display: flex; gap: 4px;
+    }
+    .lang-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 80px 24px 48px;
+    }
+    .avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 8px; }
+    .hero h1 span { color: var(--accent); }
+    .role {
+      font-size: 1rem; color: var(--muted); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 12px; justify-content: center;
+    }
+    .role::before, .role::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--border); }
+    .hero-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 10px; font-size: 0.9rem;
+      text-decoration: none; font-weight: 500; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #6a58e0; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); background: var(--card); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 24px; max-width: 860px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 40px; }
+
+    /* ── ABOUT ── */
+    .about-text { color: var(--muted); font-size: 1.05rem; max-width: 600px; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill {
+      background: var(--card); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: var(--muted);
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; display: flex; gap: 24px;
+      align-items: flex-start; transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); }
+    .project-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .project-info h3 { font-size: 1.1rem; margin-bottom: 6px; }
+    .project-info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag {
+      background: rgba(124,106,247,0.12); color: var(--accent);
+      padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;
+    }
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .project-link {
+      font-size: 0.82rem; color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 40px; text-align: center;
+    }
+    .contact-box p { color: var(--muted); margin-bottom: 24px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      color: var(--muted); font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    @media (max-width: 600px) {
+      .project-card { flex-direction: column; }
+      nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>F</span>erran Capdevila</a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar">👨‍💻</div>
+  <h1>Ferran <span>Capdevila</span> Arumí</h1>
+  <div class="role" id="hero-role">Full Stack Developer · Analyst</div>
+  <div class="hero-links">
+    <a class="btn btn-primary" href="https://github.com/ferri-17" target="_blank">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a class="btn btn-outline" href="mailto:fefan1742@gmail.com">
+      ✉️ <span id="hero-contact-btn">Contact</span>
+    </a>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label" id="label-about">About</div>
+  <h2 class="section-title" id="title-about">Who I am</h2>
+  <p class="about-text" id="text-about">
+    Full Stack Developer and Analyst based in Barcelona. I build web and mobile applications with a focus on clean architecture, performance, and user experience. Passionate about privacy and security tools.
+  </p>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label" id="label-skills">Skills</div>
+  <h2 class="section-title" id="title-skills">Technologies</h2>
+  <div class="skills-grid">
+    <span class="skill">Angular</span>
+    <span class="skill">Ionic</span>
+    <span class="skill">TypeScript</span>
+    <span class="skill">JavaScript</span>
+    <span class="skill">Capacitor</span>
+    <span class="skill">Android</span>
+    <span class="skill">Node.js</span>
+    <span class="skill">HTML / CSS</span>
+    <span class="skill">SQL</span>
+    <span class="skill">Git</span>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label" id="label-projects">Projects</div>
+  <h2 class="section-title" id="title-projects">Apps</h2>
+  <div class="project-card">
+    <div class="project-icon">🔐</div>
+    <div class="project-info">
+      <h3>cryptoApp</h3>
+      <p id="project-crypto-desc">
+        Encrypt, decrypt and hash text, photos and files with 35 algorithms. Multi-layer encryption, steganography, vault with PIN, QR scanner. No accounts, no cloud — everything runs locally on your device.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Android</span>
+        <span class="tag">Ionic</span>
+        <span class="tag">Angular</span>
+        <span class="tag">Capacitor</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://play.google.com/store/apps/details?id=com.capde.cryptoapp" target="_blank">▶ Google Play</a>
+        <a class="project-link" href="https://github.com/ferri-17" target="_blank">⌥ GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" id="label-contact">Contact</div>
+  <h2 class="section-title" id="title-contact">Get in touch</h2>
+  <div class="contact-box">
+    <p id="text-contact">Have a project in mind or just want to say hi? Feel free to reach out.</p>
+    <a class="btn btn-primary" href="mailto:fefan1742@gmail.com">✉️ fefan1742@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span id="footer-text">© 2026 Ferran Capdevila Arumí</span>
+</footer>
+
+<script>
+  const t = {
+    en: {
+      'hero-role':        'Full Stack Developer · Analyst',
+      'hero-contact-btn': 'Contact',
+      'label-about':      'About',
+      'title-about':      'Who I am',
+      'text-about':       'Full Stack Developer and Analyst based in Barcelona. I build web and mobile applications with a focus on clean architecture, performance, and user experience. Passionate about privacy and security tools.',
+      'label-skills':     'Skills',
+      'title-skills':     'Technologies',
+      'label-projects':   'Projects',
+      'title-projects':   'Apps',
+      'project-crypto-desc': 'Encrypt, decrypt and hash text, photos and files with 35 algorithms. Multi-layer encryption, steganography, vault with PIN, QR scanner. No accounts, no cloud — everything runs locally on your device.',
+      'label-contact':    'Contact',
+      'title-contact':    'Get in touch',
+      'text-contact':     'Have a project in mind or just want to say hi? Feel free to reach out.',
+      'footer-text':      '© 2026 Ferran Capdevila Arumí',
+    },
+    es: {
+      'hero-role':        'Desarrollador Full Stack · Analista',
+      'hero-contact-btn': 'Contacto',
+      'label-about':      'Sobre mí',
+      'title-about':      'Quién soy',
+      'text-about':       'Desarrollador Full Stack y Analista en Barcelona. Construyo aplicaciones web y móviles con foco en arquitectura limpia, rendimiento y experiencia de usuario. Apasionado por las herramientas de privacidad y seguridad.',
+      'label-skills':     'Habilidades',
+      'title-skills':     'Tecnologías',
+      'label-projects':   'Proyectos',
+      'title-projects':   'Apps',
+      'project-crypto-desc': 'Cifra, descifra y hashea texto, fotos y archivos con 35 algoritmos. Cifrado multicapa, esteganografía, vault con PIN, escáner QR. Sin cuentas, sin nube — todo funciona localmente en tu dispositivo.',
+      'label-contact':    'Contacto',
+      'title-contact':    'Escríbeme',
+      'text-contact':     '¿Tienes un proyecto en mente o simplemente quieres saludar? No dudes en escribir.',
+      'footer-text':      '© 2026 Ferran Capdevila Arumí',
+    }
+  };
+
+  function setLang(lang) {
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.documentElement.lang = lang;
+    Object.entries(t[lang]).forEach(([id, text]) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    });
+  }
+</script>
+
+</body>
+</html>
